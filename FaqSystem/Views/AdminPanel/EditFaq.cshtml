@@ -1,0 +1,37 @@
+﻿@using FaqSystem.Models
+@model Faq
+
+@{
+    ViewBag.Title = "Edit New FAQ";
+    Layout = "~/Views/Shared/_AdminPanelLayout.cshtml";
+}
+
+<div class="container">
+    <div class="mb-4 p-4 rounded shadow-sm" style="background-color: #263692;">
+        <div class="row d-flex justify-content-between align-items-center">
+            <h3 class="mb-0 text-white col-8" style="font-weight: 600;">Edit a Question</h3>
+            <a href="@Url.Action("Faqs", "AdminPanel")"
+               class="btn col-4"
+               style="background-color: white; color: #263692; border: 2px solid white;"
+               onmouseover="this.style.backgroundColor='#263692'; this.style.color='white'; this.style.border='2px solid white';"
+               onmouseout="this.style.backgroundColor='white'; this.style.color='#263692'; this.style.border='2px solid white';">
+                <i class="fa-solid fa-rotate-left"></i> Back To List
+            </a>
+        </div>
+    </div>
+
+    @using (Html.BeginForm("EditFaq", "AdminPanel"))
+    {
+        <div class="mb-4">
+            <label for="Question" class="form-label" style="font-weight: 600; text-transform: uppercase; font-size: 14px;">Question</label>
+            @Html.TextAreaFor(x => x.Question, new { @class = "form-control shadow-sm", placeholder = "Enter the question here...", rows = "4", style = "min-height: 120px;" })
+        </div>
+
+        <div class="mb-4">
+            <label for="Answer" class="form-label" style="font-weight: 600; text-transform: uppercase; font-size: 14px;">Answer</label>
+            @Html.TextAreaFor(x => x.Answer, new { @class = "form-control shadow-sm", placeholder = "Enter the answer here...", rows = "4", style = "min-height: 120px;" })
+        </div>
+
+        <button type="submit" class="btn w-100" style="background-color: #263692; color: white;">Submit</button>
+    }
+</div>

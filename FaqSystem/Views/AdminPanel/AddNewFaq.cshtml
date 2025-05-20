@@ -1,0 +1,59 @@
+﻿@using FaqSystem.Models
+@model Faq
+
+@{
+    ViewBag.Title = "Add New Question";
+    Layout = "~/Views/Shared/_AdminPanelLayout.cshtml";
+}
+
+<div class="container">
+    <div class="mb-4 p-4 rounded shadow-sm" style="background-color: #263692;">
+        <div class="row d-flex justify-content-between align-items-center">
+            <h3 class="mb-0 text-white col-8" style="font-weight: 600;">Add A New Question</h3>
+            <a href="@Url.Action("Faqs","AdminPanel")"
+               class="btn transition col-4"
+               style="background-color: white; color: #263692; border: 2px solid white;"
+               onmouseover="this.style.backgroundColor='#263692'; this.style.color='white'; this.style.border='2px solid white';"
+               onmouseout="this.style.backgroundColor='white'; this.style.color='#263692'; this.style.border='2px solid white';">
+                <i class="fa-solid fa-rotate-left"></i> Back To List
+            </a>
+        </div>
+    </div>
+
+    @using (Html.BeginForm("AddNewFaq", "AdminPanel"))
+    {
+        <div class="mb-4">
+            <label for="Question" class="form-label" style="font-weight: 600; text-transform: uppercase; font-size: 14px;">Question</label>
+            @Html.TextAreaFor(x => x.Question,
+                     new { @class = "form-control shadow-sm", placeholder = "Enter the question...", rows = "4", style = "min-height: 120px;" })
+        </div>
+
+        <div class="mb-4">
+            <label for="Answer" class="form-label" style="font-weight: 600; text-transform: uppercase; font-size: 14px;">Answer</label>
+            @Html.TextAreaFor(x => x.Answer,
+                     new { @class = "form-control shadow-sm", placeholder = "Enter the answer...", rows = "4", style = "min-height: 120px;" })
+        </div>
+
+        <button type="submit" class="btn w-100 transition" style="background-color: #263692; color: white;">
+            Submit
+        </button>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        // Buton hover animasyonu
+        const transitionElements = document.querySelectorAll('.transition');
+        transitionElements.forEach(function (elem) {
+            elem.style.transition = 'all 0.3s ease';
+            elem.addEventListener('mouseover', function () {
+                elem.style.transform = 'scale(1.05)';
+                elem.style.boxShadow = '0px 4px 10px rgba(0,0,0,0.2)';
+            });
+            elem.addEventListener('mouseout', function () {
+                elem.style.transform = 'scale(1)';
+                elem.style.boxShadow = 'none';
+            });
+        });
+    </script>
+}

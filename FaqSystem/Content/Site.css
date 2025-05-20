@@ -1,0 +1,272 @@
+﻿:root {
+    --white: #ffffff;
+    --logoBlue: #263692;
+    --logoDarkBlue: #16215c;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    margin-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+   /* max-width: 280px;*/
+}
+
+a{
+    color:var(--logoBlue);
+    font-weight:bold;
+    text-decoration:none !important;
+}
+
+tr {
+    vertical-align: middle;
+}
+
+.btn {
+    padding: 4px 8px;
+}
+
+    .btn.btn-custom {
+        background-color: var(--logoBlue);
+        color:var(--white);
+    }
+    .btn.btn-custom:hover{
+   border:1px solid var(--logoBlue);
+    }
+
+    .btn.btn-custom-white {
+        background-color: var(--white);
+        color: var(--logoBlue);
+        transition: 0.4s all;
+    }
+
+        .btn.btn-custom-white:hover {
+            background-color: var(--logoBlue);
+            color: var(--white);
+            transition:0.4s all;
+            border:1px solid var(--white);
+        }
+
+
+    .btn.btn-custom-outline-white {
+        color: var(--white);
+        transition: 0.4s all;
+        border: 1px solid var(--white);
+    }
+        .btn.btn-custom-outline-white:hover {
+            color: var(--logoBlue);
+            background-color: var(--white);
+            transition: 0.4s all;
+            border: 1px solid var(--white);
+        }
+
+header {
+    background-color: var(--logoBlue);
+}
+
+.ask-faq {
+    position: fixed;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    /*padding: 20px 100px;*/
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 20px;
+    width: 50vw;
+    background-color:var(--white);
+}
+
+@media (max-width:998px){
+    .ask-faq {
+        width: 85vw;
+    }
+    }
+
+/* Chat container */
+.chat-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Chat box */
+.chat-box {
+    height: 300px;
+    overflow-y: auto;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Chat message bubbles */
+.message {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    max-width: 80%;
+}
+
+.user-message {
+    background-color: #007bff;
+    color: white;
+    align-self: flex-end;
+}
+
+.ai-message {
+    background-color: #e1e1e1;
+    color: #333;
+    align-self: flex-start;
+}
+
+/* Input area */
+.input-container {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+
+    .input-container input {
+        flex-grow: 1;
+        padding: 10px;
+        border-radius: 25px;
+        border: 1px solid #ddd;
+        font-size: 16px;
+    }
+
+    .input-container button {
+        padding: 10px 15px;
+        border-radius: 25px;
+        font-size: 16px;
+    }
+
+    /*mobilde solda olması*/
+.content-wrapper {
+    margin-left: 280px;
+}
+
+@media (max-width: 991.98px) {
+    .content-wrapper {
+        margin-left: 0 !important;
+    }
+}
+
+/*main {
+    background-image: url('../Assets/i.u_logo-blue-en-background.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100vh;
+}*/
+
+.bg-overlay {
+    background-size: cover;
+    opacity: 0.3;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.pagination a {
+    border-radius: 5px;
+    padding: 8px 15px;
+    background-color: var(--logoBlue);
+    color: white;
+    margin: 0 5px;
+}
+
+    .pagination a.active {
+        border-radius: 5px;
+    }
+
+
+.pagination .active a {
+    background-color: #192360;
+    color: white;
+}
+
+.pagination-container{
+    display:flex;
+    justify-content:center;
+}
+
+
+#loading-animation{
+    display:block;
+    position:fixed;
+    z-index:999999;
+    height:100%;
+    width:100%;
+    background-color:#ffffffb2;
+    top:0;
+}
+
+#loading-animation img{
+    animation:breathe 1.4s linear infinite;
+    width:80px;
+    height:80px;
+    margin-left:-40px;
+    margin-top:-40px;
+}
+
+.loading-spinner{
+    content:" ";
+    display:block;
+    width:160px;
+    height:160px;
+    margin-left:-80px;
+    margin-top:-80px;
+    border-radius:50%;
+    border:6px solid #fff;
+    border-color: var(--logoBlue) transparent var(--logoDarkBlue) transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+}
+
+#loading-animation img,
+.loading-spinner{
+    top:50%;
+    left:50%;
+    transform:translateX(-50%) translateY(-50%);
+    position:fixed;
+    z-index:99999;
+}
+
+
+@keyframes breathe{
+    0%{
+        transform:scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes lds-dual-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

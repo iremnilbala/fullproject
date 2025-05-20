@@ -1,0 +1,45 @@
+﻿@using FaqSystem.Models
+@model User
+
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_AdminPanelLayout.cshtml";
+}
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow border-0 rounded-4 overflow-hidden">
+                <div class="row g-0">
+                    <!-- Sol kısım -->
+                    <div class="col-md-4 d-flex flex-column align-items-center justify-content-center text-white p-4" style="background-color: #455A64;">
+                        <i class="fas fa-user-circle fa-6x mb-3"></i>
+                        <h5 class="fw-semibold">@Model.FullName</h5>
+                        <p class="small text-light">Admin Card</p>
+                    </div>
+
+                    <!-- Sağ kısım -->
+                    <div class="col-md-8 bg-white p-4">
+                        <h5 class="fw-bold mb-3 text-secondary">Login Information</h5>
+                        <div class="mb-4">
+                            <p class="mb-1 text-muted small">Username</p>
+                            <p class="fw-bold">@Model.UserName</p>
+
+                            <p class="mb-1 text-muted small mt-3">Is Admin?</p>
+                            <p class="fw-bold">@Model.isAdmin</p>
+                        </div>
+
+                        <h5 class="fw-bold mb-3 text-secondary">Personal Information</h5>
+                        <div>
+                            <p class="mb-1 text-muted small">Full Name</p>
+                            <p class="fw-bold">@Model.FullName</p>
+
+                            <p class="mb-1 text-muted small mt-3">Phone</p>
+                            <p class="fw-bold">@Model.PhoneNumber</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,145 @@
+﻿@using FaqSystem.Models
+@model Faq
+
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-4" style="max-width: 800px; margin-bottom: 120px;">
+    <div id="chatContainer" class="bg-light rounded shadow-sm p-3" style="min-height: 400px;">
+        <div id="chatMessages" class="d-flex flex-column gap-2"></div>
+    </div>
+</div>
+
+<!-- Soru Yazma Alanı -->
+<div class="fixed-bottom bg-white py-3 px-3 border-top shadow" style="padding-bottom: 80px !important;">
+    <form id="questionForm" class="d-flex justify-content-center align-items-center gap-2" style="max-width: 800px; margin: 0 auto;">
+        <input type="text" id="questionText" class="form-control rounded-pill px-4 mx-2" placeholder="Type your question..." />
+        <button type="button" id="submitQuestion" style="background-color: #ff7300; border: none; " class="btn btn-primary rounded-pill px-4">Send</button>
+    </form>
+</div>
+
+<!-- Sabit Footer -->
+<footer style="
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #0d1b4c;
+    color: white;
+    text-align: center;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    z-index: 1030;">
+    © 2025 Işık University - Question and Answer Platform | Powered by İrem Nil Bala
+</footer>
+
+<!-- Stil -->
+<style>
+    .message-bubble {
+        max-width: 75%;
+        padding: 10px 16px;
+        border-radius: 20px;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        word-break: break-word;
+    }
+
+    .message-user {
+        align-self: flex-end;
+        background-color: #0d6efd;
+        color: white;
+    }
+
+    .message-bot {
+        align-self: flex-start;
+        background-color: #f1f1f1;
+        color: #333;
+    }
+
+    #chatContainer {
+        overflow-y: auto;
+        max-height: 70vh;
+    }
+</style>
+
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        function sendMessage() {
+    const question = $('#questionText').val().trim();
+
+    if (question !== "") {
+        // Kullanıcı mesajını ekle
+        $('#chatMessages').append(`<div class="d-flex justify-content-end"><div class="message-bubble message-user">${question}</div></div>`);
+        $('#questionText').val('');
+
+        // Bot cevabı için yükleniyor animasyonu
+        $('#chatMessages').append(`<div id="loading" class="d-flex justify-content-start"><div class="message-bubble message-bot">Typing...</div></div>`);
+
+        $.ajax({
+            url: '@Url.Action("GetAnswer", "Home")',
+            type: 'POST',
+            data: { question },
+            success: function (data) {
+                $('#loading').remove();
+                if (data.success) {
+                    $('#chatMessages').append(`<div class="d-flex justify-content-start"><div class="message-bubble message-bot">${data.answer}</div></div>`);
+                } else {
+                    $('#chatMessages').append(`<div class="d-flex justify-content-start"><div class="message-bubble message-bot">${data.message}</div></div>`);
+                }
+            },
+            error: function () {
+                $('#loading').remove();
+                $('#chatMessages').append(`<div class="d-flex justify-content-start"><div class="message-bubble message-bot">Something went wrong. Please try again.</div></div>`);
+            }
+        });
+    }
+}
+
+$('#submitQuestion').click(function () {
+    sendMessage();
+});
+
+$('#questionText').keypress(function (e) {
+    if (e.which === 13 && !e.shiftKey) { // Enter'a basıldıysa ve Shift değilse
+        e.preventDefault(); // Enter'la satır eklemeyi engelle
+        sendMessage();
+    }
+});
+
+
+        @*$('#submitQuestion').click(function () {
+            const question = $('#questionText').val().trim();
+
+            if (question !== "") {
+                // Kullanıcı mesajını ekle
+                $('#chatMessages').append(`<div class="d-flex justify-content-end"><div class="message-bubble message-user">${question}</div></div>`);
+                $('#questionText').val('');
+
+                // Bot cevabı için yükleniyor animasyonu
+                $('#chatMessages').append(`<div id="loading" class="d-flex justify-content-start"><div class="message-bubble message-bot">Typing...</div></div>`);
+
+                $.ajax({
+                    url: '@Url.Action("GetAnswer", "Home")',
+                    type: 'POST',
+                    data: { question },
+                    success: function (data) {
+                        $('#loading').remove();
+                        if (data.success) {
+                            $('#chatMessages').append(`<div class="d-flex justify-content-start"><div class="message-bubble message-bot">${data.answer}</div></div>`);
+                        } else {
+                            $('#chatMessages').append(`<div class="d-flex justify-content-start"><div class="message-bubble message-bot">${data.message}</div></div>`);
+                        }
+                    },
+                    error: function () {
+                        $('#loading').remove();
+                        $('#chatMessages').append(`<div class="d-flex justify-content-start"><div class="message-bubble message-bot">Something went wrong. Please try again.</div></div>`);
+                    }
+                });
+            }
+        });*@
+    </script>
+}

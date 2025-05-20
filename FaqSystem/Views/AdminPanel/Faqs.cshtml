@@ -1,0 +1,121 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@using FaqSystem.Models
+@model IPagedList<FaqSystem.Models.Faq>
+
+@{
+    ViewBag.Title = "Faqs";
+    Layout = "~/Views/Shared/_AdminPanelLayout.cshtml";
+}
+
+<h3 class="mb-3">FAQ List</h3>
+
+
+<a class="btn btn-success mb-3 text-end" href="@Url.Action("AddNewFaq","AdminPanel")">
+    <i class="fa-solid fa-square-plus"></i> Add a new FAQ
+</a>
+<div class="table-responsive d-none d-md-block">
+    @using (Html.BeginForm("Faqs", "AdminPanel", FormMethod.Get))
+    {
+        <div class="p-3">
+            <div class="input-group mb-3 d-flex align-items-center p-3" style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; border-radius: 10px; ">
+                <input type="text" name="Search" class="form-control me-3" placeholder="Search FAQs..."
+                       value="@ViewBag.Search" style="border-radius:5px" />
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
+            </div>
+        </div>
+    }
+
+
+    <div class="text-center">
+        @Html.PagedListPager(Model, page => Url.Action("Faqs", new { page, Search = ViewBag.Search }))
+    </div>
+
+    <table class="table table-hover table-bordered align-middle">
+        <thead class="table-light">
+            <tr>
+                <th style="width: 50px;">#</th>
+                <th>Question</th>
+                <th style="width: 40%;">Answer</th>
+                <th style="width: 150px;">Who Added</th>
+                <th style="width: 120px;">Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Question</td>
+                    <td>@item.Answer</td>
+                    <td>@item.User.FullName</td>
+                    <td>
+                        @if (item.UserId == ViewBag.UserId)
+                        {
+                            <div class="d-flex gap-1">
+                                <a class="btn btn-warning text-white btn-sm" href="@Url.Action("EditFaq", "AdminPanel", new { id = item.Id })">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                                <a class="btn btn-danger text-white btn-sm" onclick="return confirm('Are you sure you want to delete this record?');" href="@Url.Action("RemoveFaq", "AdminPanel", new { id = item.Id })">
+                                    <i class="fa-solid fa-square-xmark"></i>
+                                </a>
+                            </div>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="text-center">
+        @Html.PagedListPager(Model, page => Url.Action("Faqs", new { page, Search = ViewBag.Search }))
+    </div>
+</div>
+
+<!-- Mobil görünüm (kart yapısı) -->
+<!-- Mobilde Search Bar -->
+<div class="d-block d-md-none px-3 mt-3">
+    @using (Html.BeginForm("Faqs", "AdminPanel", FormMethod.Get))
+    {
+        <div class="input-group mb-3">
+            <input type="text" name="Search" class="form-control" placeholder="Search FAQs..." value="@ViewBag.Search" />
+            <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+    }
+</div>
+
+
+
+
+
+<div class="d-block d-md-none">
+    @foreach (var item in Model)
+    {
+        <div class="card mb-3">
+            <div class="card-body">
+                <h6 class="card-title fw-bold">Q: @item.Question</h6>
+                <p class="card-text"><strong>A:</strong> @item.Answer</p>
+                <p class="text-muted small mb-2">Added by: @item.User.FullName</p>
+                @if (item.UserId == ViewBag.UserId)
+                {
+                    <div class="d-flex gap-2">
+                        <a class="btn btn-warning text-white btn-sm" href="@Url.Action("EditFaq", "AdminPanel", new { id = item.Id })">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                        <a class="btn btn-danger text-white btn-sm" onclick="return confirm('Are you sure you want to delete this record?');" href="@Url.Action("RemoveFaq", "AdminPanel", new { id = item.Id })">
+                            <i class="fa-solid fa-square-xmark"></i>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+
+<!-- Mobilde Sayfalama -->
+<div class="text-center d-block d-md-none">
+    @Html.PagedListPager(Model, page => Url.Action("Faqs", new { page, Search = ViewBag.Search }))
+</div>

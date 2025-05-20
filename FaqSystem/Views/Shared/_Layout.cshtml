@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Question & Answer Platform</title>
+
+    <link rel="icon" type="image/x-icon" href="~/Assets/i.u_logo-blue-en.png">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="container-fluid px-0">
+        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+            <a class="">
+
+            </a>
+
+            <ul class="nav col-12 offset-0 offset-md-3 col-md-6 mb-2 justify-content-center mb-md-0">
+                <a href="/"><img class="img-fluid px-4 px-md-0" src="~/Assets/i.u_logo-white-en.png" style="height:80px;object-fit:contain" /></a>
+            </ul>
+
+            <div class="col-md-3 text-start">
+
+                <a href="@Url.Action("Login","AdminPanel")" class="btn btn-custom-white">Login</a>
+                <a href="@Url.Action("Register","AdminPanel")" class="btn btn-custom-outline-white">Sign-up</a>
+            </div>
+        </header>
+
+        <div id="loading-animation">
+            <div class="loading-spinner"></div>
+            <img src="~/Assets/i.u_logo-blue-en.png" />
+        </div>
+    </div>
+    <div class="container-fluid text-center px-0 body-content">
+        @RenderBody()
+
+        @Html.Partial("_Footer")
+    </div>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <!-- Wow.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/js/all.min.js" integrity="sha512-b+nQTCdtTBIRIbraqNEwsjB6UvL3UEMkXnhzd8awtCYh0Kcsjl9uEgwVFVbhoj3uu1DO1ZMacNvLoyJJiNfcvg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        new WOW().init();
+
+        $(window).on('load', function () {
+            $('#loading-animation').fadeOut();
+        })
+    </script>
+
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
